@@ -6,12 +6,8 @@ import {
     Scene,
     Color,
     Vector2,
-    PlaneBufferGeometry,
-    FrontSide,
-    Plane,
-    TetrahedronGeometry,
-    Vector3
-} from "./../js/three.module.js";
+    PlaneBufferGeometry
+} from "./../js/lib/three.module.js";
 
 class Waveform {
     constructor(num_waves=4) {
