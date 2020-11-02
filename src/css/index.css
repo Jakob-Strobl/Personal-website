@@ -1,0 +1,235 @@
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 200;
+    src: url('./../fonts/Raleway-ExtraLight.ttf');
+}
+
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 300;
+    src: url('./../fonts/Raleway-Light.ttf');
+}
+
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./../fonts/Raleway-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    src: url('./../fonts/Raleway-SemiBold.ttf');
+}
+
+:root {
+    /* Page Colors */
+    --night-900: #130d20;
+    --night-800: #6e13ab;
+    --night-700: #8226bc;
+    --night-600: #933ccb; 
+    --night-500: #a453d8;
+    --night-400: #b266e2;
+    --night-300: #a083de;
+    --night-200: #c1acf1;
+    --night-100: #dfd1ff;
+    --night-50: #efe9ff;
+    --night-bg: var(--night-900);
+
+    --day-100: #fffefb;
+}
+
+html, * {
+    overflow: hidden;
+    color: var(--day-100);
+    font-family: 'Raleway';
+}
+
+/* Remove nav's default properties */
+nav {
+    border: none;
+    border-radius: 0;
+    color: inherit;
+    background: none;
+}
+
+nav * {
+    padding: 0;
+}
+
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    border: none;
+    top: 0;
+    z-index: -1;
+}
+
+.content-menu {
+    margin-top: 1.5vh;
+    vertical-align: baseline;
+    text-align: center;
+}
+
+.name {
+    line-height: 1em;
+    font-weight: 400;
+}
+
+a.content-link {
+    /* Removing default properties */
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+a.content-link:hover {
+    background: none;
+}
+
+a.content-link:visited {
+    color: inherit;
+}
+
+a.content-link:focus {
+    background: none;
+}
+
+a.content-link * {
+    font-weight: 300;
+    opacity: 0.6;
+}
+
+a.content-link:hover * {
+    transform: scale(1.06, 1.06);
+    opacity: 1;
+    transition-duration: 0.4s;
+}
+
+a.content-link:focus * {
+    transform: scale(1.06, 1.06);
+    opacity: 1;
+    text-decoration: underline;
+}
+
+a.locked.content-link * {
+    color: transparent;
+    text-shadow: 0 0 6px rgba(255, 254, 251, 1.0);
+}
+
+a.locked.content-link:hover * {
+    color: inherit;
+    opacity: 0.6;
+    text-shadow: none;
+}
+
+a.locked.content-link:focus * {
+    color: inherit;
+    opacity: 0.6;
+    text-shadow: none;
+}
+
+section.panel-section {
+    margin-top: 2vw;
+    display: none;
+}
+
+/*  Use this if you want to animate all elements' opacity at the same time
+.panel-content {
+    opacity: 0.05;
+} */
+
+.panel-content * {
+    font-size: 2rem;
+}
+
+.panel-content .el {
+    opacity: 0;
+}
+
+.big-word {
+    color: var(--night-500);
+    font-size: 4rem;
+    line-height: 1;
+}
+
+.subtext {
+    color: var(--night-50);
+    font-size: 1.2rem;
+    opacity: 0.7;
+}
+
+.contact-card {
+    display: block;
+    text-align: center;
+    /* Margin top added so when image scales up on hover, the top doesn't get cut off */
+    margin-top: 0.5rem;
+}
+
+.contact-card:hover {
+    transition-duration: 0.4s;
+    transform: scale(1.03, 1.03);
+}
+
+.contact-card-link:visited {
+    color: var(--night-600);
+}
+
+.contact-tag {
+    margin-bottom: 1.5vw;
+}
+
+.contact-tag p {
+    font-size: 3rem;
+}
+
+#github img {
+    max-width: 257px;  
+    min-width: 86px;
+    width: 14vw;
+    height: auto;
+}
+
+#linkedin img {
+    /* This width matches the max height of LinkedIn image to the github octocat image 
+        Github Octacat Dimensions - 257x250
+        LinkedIn Bug Dimensions - 733x540
+
+        Width/Height := Linked In bug aspect ratio 
+        Aspect Ration * github height = Desired max height of LinkedIn Image
+        - Works since github image will never exceed 256x250
+
+        Github: 257/250 = 1.028 (width/height)
+        LinkedIn: 733/540 = 1.3574 (width/height)
+
+        max-width: 
+            height * (width/height) = width
+            250px (height) * 1.3574 (width/height) = 339px (width)
+
+        min-width:
+            86px (width) / 1.028 (width/height) = 83.6576 (height)
+            83.6576 (height) * 1.3574 (width/height) := 113.55 (width)
+        
+        width:
+            widthRate := 257px / 14vw := 18.357 (px/vw)
+            width := 339px / widthRate (px/vw) := 18.467 vw
+    */
+
+    max-width: 339px;  
+    min-width: 113.5px;
+    width: 18.467vw;
+    height: auto;
+}
+
+/* This is used for Animejs to know which elements we want to stagger for an animation
+.el {
+
+} */

@@ -1,0 +1,34 @@
+# Degen internal runtime settings 
+[degen]
+enable_html_in_markdown = true 
+warn_page_property_loads_default = false    
+warn_page_property_no_validation_rule = false
+log_write_rendered_html = false
+
+# Pages are the quick files a user can write to be generated 
+[project]
+domain_url = "" # used for vscode liveserver 
+source_path = "src/"
+export_path = "dist/"
+
+# source directory = export dir
+# will pass through all non .md files
+[project.passthrough]
+"src/background/" = "dist/background/"
+"src/css/" = "dist/css/"
+"src/fonts/" = "dist/fonts/"
+"src/img/" = "dist/img/"
+"src/js/" = "dist/js"
+
+# Page Types (Types of Content to Generate into a final html file)
+#   - Project
+#   - Post 
+# Default properties for each Statis Page Type
+#   - is_public: if true, the site will be generated, else, it will not be generated or written
+#   - tempalte: template to use
+#   - title: html <title>
+[pages.default]
+is_public = false
+title = "TITLE NOT SET"
+template = "templates/index.html"
+date = "created"

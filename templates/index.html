@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script type="module" src="./js/index.js" defer></script>
+    <title>!{ title }</title>
+</head>
+<body>
+    <iframe class="background" src="./background/background.html"></iframe>
+    <nav class="container">
+        <div class="row cols-sm-12 cols-md content-menu">
+            <div>
+                <a id="experience-link" class="locked content-link" role="button" href="#experience" target="_self">
+                    <h2>Experience</h2>
+                </a>
+            </div>
+            <div>
+                <a id="portfolio-link" class="locked content-link" role="button" href="#portfolio" target="_self">
+                    <h2>Portfolio</h2>
+                </a>
+            </div>
+            <div class="col-sm-first col-md-normal">
+                <h1 class="name">Jakob Strobl</h1>
+            </div>
+            <div>
+                <a id="blog-link" class="locked content-link" role="button" href="#blog" target="_self">
+                    <h2>Blog</h2>
+                </a>
+            </div>
+            <div>
+                <a id="contact-link" class=" content-link" role="button" href="#contact" target="_self">
+                    <h2>Contact</h2>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="panel">
+        <section id="locked-panel" class="panel-section container"> 
+            <div class="row">
+                <div class="col-sm-1 col-md-2"></div>
+                <div class="col-sm-10 col-md-8 panel-content">
+                    <p>
+                        <span class="big-word el">Oops...</span>
+                        <span class="el">
+                            This content requires more development time and is locked for the time being.
+                            <i class="subtext">I should get on that.</i>
+                        </span>
+                        <br>
+                        <span class="el">Check back soon!</span>
+                    </p>
+                </div>
+                <div class="col-sm-1 col-md-2"></div>
+            </div>
+        </section>
+        <section id="contact-panel" class="panel-section container">
+            <div class="row">
+                <div class="col-sm-1 col-md-2"></div>
+                <div class="col-sm-10 col-md-8 row cols-sm-12 panel-content">
+                    <div class="contact-tag">
+                        <p class="el">Get in touch.</p>
+                    </div>
+                    <div class="row cols-sm-12 cols-md">
+                        <div id="github" class="contact-card el">
+                            <a class="contact-card-link" href="https://github.com/Jakob-Strobl" target="_blank">
+                                <img src="./img/contact-logos/Github-octocat-256.png" alt="Github Octocat Logo"/>
+                                <p>Github</p>
+                            </a>
+                        </div>
+                        <div id="linkedin" class="contact-card el">
+                            <a class="contact-card-link" href="https://www.linkedin.com/in/jakob-strobl/" target="_blank">
+                                <img src="./img/contact-logos/LI-In-Bug-resized.png" alt="LinkedIn Logo"/>
+                                <p>LinkedIn</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <p><br></p>
+                        <p class="el">This website was built with Degen (an custom Static Site Generator), three.js, mini.css, and anime.js.</p>
+                    </div>
+                </div>
+                <div class="col-sm-1 col-md-2"></div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
