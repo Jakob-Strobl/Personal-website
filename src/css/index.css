@@ -44,7 +44,6 @@
 }
 
 html, * {
-    overflow: hidden;
     color: var(--day-100);
     font-family: 'Raleway';
 }
@@ -67,7 +66,9 @@ nav * {
     height: 100%;
     border: none;
     top: 0;
+    left: 0;
     z-index: -1;
+    overflow: hidden;
 }
 
 .content-menu {
