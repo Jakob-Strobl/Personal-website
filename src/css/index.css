@@ -40,6 +40,14 @@
     --night-50: #efe9ff;
     --night-bg: var(--night-900);
 
+    --day-900: #5a3b33;
+    --day-800: #96593d;
+    --day-700: #cd824d;
+    --day-600: #e7b278;
+    --day-500: #f8dcae;
+    --day-400: #fae6c5;
+    --day-300: #fcf0db;
+    --day-200: #fef9f2;
     --day-100: #fffefb;
 }
 
@@ -148,6 +156,8 @@ section.panel-section {
     opacity: 0.05;
 } */
 
+/* Basic Panel / Locked Panel */
+
 .panel-content * {
     font-size: 2rem;
 }
@@ -167,6 +177,8 @@ section.panel-section {
     font-size: 1.2rem;
     opacity: 0.7;
 }
+
+/* Contact Panel */
 
 .contact-card {
     display: block;
@@ -234,3 +246,36 @@ section.panel-section {
 .el {
 
 } */
+
+/* Education Panel */
+.education-title {
+    border-bottom: 1px solid var(--day-100);
+}
+
+.title {
+    opacity: 0.85;
+    text-transform: uppercase;
+}
+
+.justify-right {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.timeline {
+    color: var(--night-100);
+    font-weight: 300;
+    font-size: 1.6rem;
+    line-height: 1.4;
+}
+
+.location {
+    font-weight: 300;
+    font-size: 1.3rem;
+    line-height: 1.4;
+}
+
+.university-info * {
+    font-size: 1.4rem;
+}

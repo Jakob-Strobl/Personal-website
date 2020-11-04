@@ -48,6 +48,7 @@ window.onload = () => {
     // Locked panel is the default for all content panels that have not been completed
     const locked_panel = new Panel(document.getElementById('locked-panel'));
     const contact_panel = new Panel(document.getElementById('contact-panel'));
+    const experience_panel = new Panel(document.getElementById('experience-panel'));
 
     // Add animation to panels
     const locked_panel_elements = locked_panel.panel_element.querySelectorAll('.panel-content .el');
@@ -76,7 +77,7 @@ window.onload = () => {
     });
 
     // Set onclick functionality 
-    experience_link.onclick = () => panel_context.renderPanel(locked_panel);
+    experience_link.onclick = () => panel_context.renderPanel(experience_panel);
     portfolio_link.onclick = () => panel_context.renderPanel(locked_panel);
     blog_link.onclick = () => panel_context.renderPanel(locked_panel);
     contact_link.onclick = () => panel_context.renderPanel(contact_panel);
