@@ -10,6 +10,7 @@ class PanelDirector {
             // Hide current panel
             this.current_panel.hide();
         }
+
         // Change current panel to the panel given to render
         this.current_panel = panel;
 
@@ -19,13 +20,19 @@ class PanelDirector {
 }
 
 class Panel {
-    constructor(html_element) {
+    constructor(html_element, html_link) {
         this.panel_element = html_element;
+        // Assume each link element has a single child
+        this.link_element = html_link;
         this.onRenderAnimation = null;
     }
 
     display() {
         this.panel_element.style.display = "block";
+        if (this.link_element) {
+            // Style from index.css { a.content-link:focus * }
+            this.link_element.children[0].style = "transform: scale(1.06, 1.06);opacity: 1;text-decoration: underline;"
+        }
         if (this.onRenderAnimation) {
             this.onRenderAnimation.restart();
         }
@@ -33,6 +40,9 @@ class Panel {
 
     hide() {
         this.panel_element.style.display = "none";
+        if (this.link_element) {
+            this.link_element.children[0].style = "";
+        }
     }
 }
 
@@ -47,8 +57,8 @@ window.onload = () => {
 
     // Locked panel is the default for all content panels that have not been completed
     const locked_panel = new Panel(document.getElementById('locked-panel'));
-    const contact_panel = new Panel(document.getElementById('contact-panel'));
-    const experience_panel = new Panel(document.getElementById('experience-panel'));
+    const experience_panel = new Panel(document.getElementById('experience-panel'), experience_link);
+    const contact_panel = new Panel(document.getElementById('contact-panel'), contact_link);
 
     // Add animation to panels
     const locked_panel_elements = locked_panel.panel_element.querySelectorAll('.panel-content .el');
@@ -61,7 +71,6 @@ window.onload = () => {
     });
 
     const contact_panel_elements = Array.from(contact_panel.panel_element.querySelectorAll('.panel-content .el'));
-    console.log(contact_panel_elements)
     contact_panel.onRenderAnimation = anime.timeline({
         duration: 500,
         easing: 'easeInOutSine',
@@ -86,7 +95,6 @@ window.onload = () => {
     const regex = /#\w+/i;
     const url = window.location.href;
 
-    console.log(url.match(regex));
     const url_match = url.match(regex);
     if (url_match) {
         const url_id = url_match[0];
