@@ -277,6 +277,27 @@ section.panel-section {
     height: auto;
 }
 
+a.framework {
+    color: var(--day-100);
+    text-decoration: underline;
+}
+
+a.degen-link:hover {
+    color: var(--night-400);
+}
+
+a.threejs-link:hover {
+    color: #049ef4;
+}
+
+a.minicss-link:hover {
+    color: #f22f21;
+}
+
+a.anime-link:hover {
+    color: #f64e4d;
+}
+
 /* This is used for Animejs to know which elements we want to stagger for an animation
 .el {
 
