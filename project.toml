@@ -23,7 +23,7 @@ export_path = "dist/"
 # Page Types (Types of Content to Generate into a final html file)
 #   - Project
 #   - Post 
-# Default properties for each Statis Page Type
+# Default properties for each Degenerate Page Type
 #   - is_public: if true, the site will be generated, else, it will not be generated or written
 #   - tempalte: template to use
 #   - title: html <title>
