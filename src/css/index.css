@@ -22,6 +22,13 @@
 @font-face {
     font-family: 'Raleway';
     font-style: normal;
+    font-weight: 500;
+    src: url('./../fonts/Raleway-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
     font-weight: 600;
     src: url('./../fonts/Raleway-SemiBold.ttf');
 }
@@ -276,7 +283,8 @@ section.panel-section {
 } */
 
 /* Education Panel */
-.education-title {
+.sub-title {
+    margin-top: 1rem;
     border-bottom: 1px solid var(--day-100);
 }
 
@@ -298,7 +306,11 @@ section.panel-section {
     line-height: 1.4;
 }
 
-.location {
+.headline {
+    font-weight: 500;
+}
+
+.subline {
     font-weight: 300;
     font-size: 1.3rem;
     line-height: 1.4;
@@ -306,4 +318,17 @@ section.panel-section {
 
 .university-info * {
     font-size: 1.4rem;
+    padding-left: 0.75rem;
+}
+
+ul.dash {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 1em;
+}
+
+ul.dash > li::before {
+    display: inline-block;
+    content: "-";
+    width: 1em;
 }
