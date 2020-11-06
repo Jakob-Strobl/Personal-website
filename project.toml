@@ -32,3 +32,4 @@ is_public = false
 title = "TITLE NOT SET"
 template = "templates/index.html"
 date = "created"
+build = "Alpha 3" # Build version of the website
