@@ -68,6 +68,29 @@ nav * {
     padding: 0;
 }
 
+footer {
+    position: fixed;
+    height: 4rem;
+    bottom: 0;
+
+    /* Center horizontally */
+    width: 100%;
+    display: block;
+    text-align: center;
+
+    /* Vertically align text to bottom */
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+
+    /* Overwrite mini.css */
+    /* The color used for gradient is a shade darker than --night-900 (base color)
+     * because --night-900 actually seemed too light. */
+    background: linear-gradient(0, rgb(11, 7, 18) 33%, transparent 100%);
+    border-top: none;
+    padding-bottom: 4px;
+}
+
 .background {
     position: fixed;
     width: 100%;
@@ -157,6 +180,11 @@ section.panel-section {
 } */
 
 /* Basic Panel / Locked Panel */
+
+.panel {
+    /* Bottom margin stops footer from blocking panel's html content on small devices */
+    margin-bottom: 4rem;
+}
 
 .panel-content * {
     font-size: 2rem;
