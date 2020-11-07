@@ -176,17 +176,18 @@ a.locked.content-link:focus * {
     text-shadow: none;
 }
 
-section.panel-section {
-    margin-top: 2vw;
-    display: none;
-}
-
 /*  Use this if you want to animate all elements' opacity at the same time
 .panel-content {
     opacity: 0.05;
 } */
 
 /* Basic Panel / Locked Panel */
+
+section.panel-section {
+    margin-top: 2vw;
+    display: none;
+}
+
 
 .panel {
     /* Bottom margin stops footer from blocking panel's html content on small devices */

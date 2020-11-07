@@ -70,6 +70,15 @@ window.onload = () => {
         delay: anime.stagger(500, {easing: 'easeOutQuad'})
     });
 
+    const experience_panel_elements = Array.from(experience_panel.panel_element.querySelectorAll('.panel-content .el'));
+    experience_panel.onRenderAnimation = anime({
+        targets: experience_panel_elements,
+        opacity: 1,
+        duration: 600,
+        easing: 'easeInOutSine',
+        delay: anime.stagger(300)
+    });
+
     const contact_panel_elements = Array.from(contact_panel.panel_element.querySelectorAll('.panel-content .el'));
     contact_panel.onRenderAnimation = anime.timeline({
         duration: 500,
