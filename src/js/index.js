@@ -67,7 +67,7 @@ window.onload = () => {
         opacity: 1,
         duration: 600,
         easing: 'easeInOutSine',
-        delay: anime.stagger(500, {easing: 'easeOutQuad'})
+        delay: anime.stagger(300, {easing: 'easeOutQuad'})
     });
 
     const experience_panel_elements = Array.from(experience_panel.panel_element.querySelectorAll('.panel-content .el'));
