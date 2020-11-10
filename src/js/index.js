@@ -46,6 +46,29 @@ class Panel {
     }
 }
 
+function renderCTAMessage() {
+    const cta_message = document.getElementById('cta-message');
+    cta_message.style.display = "inherit";
+
+    // Get the rendered height of the message (height is computed by proswer)
+    const height = cta_message.scrollHeight;
+    // Set the height to a base minimum to render in
+    cta_message.style.height = "1em"
+
+    anime({
+        targets: cta_message,
+        opacity: 1,
+        height: `${height}px`,
+        duration: 1200,
+        complete: () => {
+            // So the browser can handle the height once 
+            cta_message.style.height = "auto";
+        }
+    })
+    .play();
+
+}
+
 const panel_context = new PanelDirector();
 
 // Set up content-links onclick funcitonality 
@@ -54,6 +77,7 @@ window.onload = () => {
     const portfolio_link = document.getElementById('portfolio-link');
     const blog_link = document.getElementById('blog-link');
     const contact_link = document.getElementById('contact-link');
+    const cta_link = document.getElementById('cta-link');
 
     // Locked panel is the default for all content panels that have not been completed
     const locked_panel = new Panel(document.getElementById('locked-panel'));
@@ -99,6 +123,7 @@ window.onload = () => {
     portfolio_link.onclick = () => panel_context.renderPanel(locked_panel);
     blog_link.onclick = () => panel_context.renderPanel(locked_panel);
     contact_link.onclick = () => panel_context.renderPanel(contact_panel);
+    cta_link.onclick = () => panel_context.renderPanel(contact_panel);
     
     // Load panel if url_id is given
     const regex = /#\w+/i;
@@ -126,4 +151,7 @@ window.onload = () => {
             }   
         }
     }
+
+    // Set second second timer to invoke rendering the call-to-action work message
+    setTimeout(renderCTAMessage, 30000);
 }
