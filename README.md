@@ -2,7 +2,7 @@
 
 This repository contains the project setup, source code, and contents for my personal site at **www.jstrobl.com**.
 
-## Version: Alpha 1
+## Version: Alpha 3
 
 The site will almost always reflect the main branch, barring some minor changes in-between versions.
 
