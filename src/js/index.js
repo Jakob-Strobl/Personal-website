@@ -66,7 +66,6 @@ function renderCTAMessage() {
         }
     })
     .play();
-
 }
 
 const panel_context = new PanelDirector();
@@ -152,6 +151,6 @@ window.onload = () => {
         }
     }
 
-    // Set second second timer to invoke rendering the call-to-action work message
+    // After 30 seconds, render CTA message
     setTimeout(renderCTAMessage, 30000);
 }
