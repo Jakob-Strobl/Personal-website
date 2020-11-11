@@ -395,3 +395,9 @@ ul.dash > li::before {
     content: "-";
     width: 1em;
 }
+
+/* Portfolio Panel */
+.project-year {
+    opacity: 0.85;
+    font-size: 2.25rem;
+}

@@ -50,7 +50,7 @@ function renderCTAMessage() {
     const cta_message = document.getElementById('cta-message');
     cta_message.style.display = "inherit";
 
-    // Get the rendered height of the message (height is computed by proswer)
+    // Get the rendered height of the message (height is computed by broswer)
     const height = cta_message.scrollHeight;
     // Set the height to a base minimum to render in
     cta_message.style.height = "1em"
@@ -81,6 +81,7 @@ window.onload = () => {
     // Locked panel is the default for all content panels that have not been completed
     const locked_panel = new Panel(document.getElementById('locked-panel'));
     const experience_panel = new Panel(document.getElementById('experience-panel'), experience_link);
+    const portfolio_panel = new Panel(document.getElementById('portfolio-panel'), portfolio_link);
     const contact_panel = new Panel(document.getElementById('contact-panel'), contact_link);
 
     // Add animation to panels
@@ -119,7 +120,7 @@ window.onload = () => {
 
     // Set onclick functionality 
     experience_link.onclick = () => panel_context.renderPanel(experience_panel);
-    portfolio_link.onclick = () => panel_context.renderPanel(locked_panel);
+    portfolio_link.onclick = () => panel_context.renderPanel(portfolio_panel);
     blog_link.onclick = () => panel_context.renderPanel(locked_panel);
     contact_link.onclick = () => panel_context.renderPanel(contact_panel);
     cta_link.onclick = () => panel_context.renderPanel(contact_panel);
