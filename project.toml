@@ -30,7 +30,7 @@ export_path = "dist/"
 [pages.default]
 is_public = false
 title = "TITLE NOT SET"
-template = "templates/index.html"
+template = "templates/basic.html"
 date = "created"
 build = "Alpha 3" # Build version of the website
 
