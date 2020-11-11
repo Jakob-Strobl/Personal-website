@@ -99,6 +99,7 @@ footer {
 }
 
 .background {
+    background-color: var(--night-900);
     position: fixed;
     width: 100%;
     height: 100%;
