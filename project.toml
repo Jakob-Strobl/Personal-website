@@ -33,3 +33,10 @@ title = "TITLE NOT SET"
 template = "templates/index.html"
 date = "created"
 build = "Alpha 3" # Build version of the website
+
+[pages.project]
+is_public = false
+title = "PROJECT TITLE NOT SET"
+template = "templates/basic_project.html"
+date = "created"
+
