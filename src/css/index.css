@@ -192,8 +192,6 @@ a.locked.content-link:focus * {
 }
 
 .work-card {
-    display: block;
-    width: 100%;
     background: var(--night-500);
 
     border-left-style: solid;
@@ -220,6 +218,11 @@ a.locked.content-link:focus * {
 #cta-link:hover {
     /* Removing default properties */
     color: black;
+}
+
+#close-cta {
+    background: none;
+    color: var(--day-100);
 }
 
 /* Basic Panel / Locked Panel */

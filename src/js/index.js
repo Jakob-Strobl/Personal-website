@@ -47,6 +47,10 @@ class Panel {
 }
 
 function renderCTAMessage() {
+    function clearCTAMessage() {
+        cta_message.style.display = "none";
+    }
+
     const cta_message = document.getElementById('cta-message');
     cta_message.style.display = "inherit";
 
@@ -66,12 +70,19 @@ function renderCTAMessage() {
         }
     })
     .play();
+
+    const cta_close = document.getElementById('close-cta');
+    cta_close.onclick = clearCTAMessage;
 }
 
 const panel_context = new PanelDirector();
 
 // Set up content-links onclick funcitonality 
 window.onload = () => {
+    // After 30 seconds, render CTA message
+    setTimeout(renderCTAMessage, 30000);
+
+    // Init the page functionality
     const experience_link = document.getElementById('experience-link');
     const portfolio_link = document.getElementById('portfolio-link');
     const blog_link = document.getElementById('blog-link');
@@ -151,7 +162,4 @@ window.onload = () => {
             }   
         }
     }
-
-    // After 30 seconds, render CTA message
-    setTimeout(renderCTAMessage, 30000);
 }
