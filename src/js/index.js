@@ -17,6 +17,14 @@ class PanelDirector {
         // Display the panel
         this.current_panel.display();
     }
+
+    clearPanel() {
+        if (this.current_panel) {
+            // Hide current panel
+            this.current_panel.hide();
+            this.current_panel = null;
+        }
+    }
 }
 
 class Panel {
@@ -85,6 +93,7 @@ window.onload = () => {
     // Init the page functionality
     const experience_link = document.getElementById('experience-link');
     const portfolio_link = document.getElementById('portfolio-link');
+    const name_link = document.getElementById('name-link');
     const blog_link = document.getElementById('blog-link');
     const contact_link = document.getElementById('contact-link');
     const cta_link = document.getElementById('cta-link');
@@ -132,6 +141,7 @@ window.onload = () => {
     // Set onclick functionality 
     experience_link.onclick = () => panel_context.renderPanel(experience_panel);
     portfolio_link.onclick = () => panel_context.renderPanel(portfolio_panel);
+    name_link.onclick = () => panel_context.clearPanel();
     blog_link.onclick = () => panel_context.renderPanel(locked_panel);
     contact_link.onclick = () => panel_context.renderPanel(contact_panel);
     cta_link.onclick = () => panel_context.renderPanel(contact_panel);

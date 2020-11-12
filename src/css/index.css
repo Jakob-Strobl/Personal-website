@@ -116,9 +116,25 @@ footer {
     text-align: center;
 }
 
-.name {
+a.name {
+    /* Removing default properties */
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+
     line-height: 1em;
     font-weight: 400;
+}
+
+a.name:hover {
+    background: none;
+}
+
+a.name:focus {
+    background: none;
 }
 
 a.content-link {
