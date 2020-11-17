@@ -236,9 +236,12 @@ a.locked.content-link:focus * {
     color: black;
 }
 
-#close-cta {
+#close-cta button {
+    margin: 0;
+    padding: 0 15% 0 0;
     background: none;
     color: var(--day-100);
+    font-weight: 600;
 }
 
 /* Basic Panel / Locked Panel */
@@ -419,4 +422,22 @@ ul.dash > li::before {
 .project-year {
     opacity: 0.85;
     font-size: 2.25rem;
+}
+
+.project {
+    margin: 1rem 0 0 0;
+    display: block;
+    text-align: center;
+}
+
+.project img {
+    width: 85%;
+}
+
+.project-title {
+    margin: 2px;
+    padding: 0 7.5% 0 7.5%;
+    text-align: left;
+    font-size: 1.25rem;
+    font-weight: 600;
 }
