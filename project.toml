@@ -39,4 +39,5 @@ is_public = false
 title = "PROJECT TITLE NOT SET"
 template = "templates/basic_project.html"
 date = "created"
+thumbnail = "./img/projects/thumbnails/placeholder.png"
 
