@@ -221,6 +221,23 @@
                             });
                         }}
                     </div>
+                    <div class="sub-title row">
+                        <div class="col-sm-12">
+                            <p class="project-year">2019</p>
+                        </div>
+                    </div>
+                    <div class="project-container row">
+                        !{{
+                            projects
+                            .filter((page) => page.get('date').getFullYear() === 2019)
+                            .render((page) => {
+                                return `<div class="project col-sm-6 col-md-4">
+                                            <img src="${page.get('thumbnail')}">
+                                            <p class="project-title">${page.title()}</p>
+                                        </div>`;
+                            });
+                        }}
+                    </div>
                 </div>
             </div>
         </section>
