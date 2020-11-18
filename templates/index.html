@@ -215,7 +215,7 @@
                             .render((page) => {
                                 return `<div class="project col-sm-6 col-md-4">
                                             <img src="${page.get('thumbnail')}">
-                                            <p class="project-title">${page.get('title')}</p>
+                                            <p class="project-title">${page.title()}</p>
                                         </div>`;
                             });
                         }}
