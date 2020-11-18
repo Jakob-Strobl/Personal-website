@@ -212,6 +212,7 @@
                     <div class="project-container row">
                         !{{
                             projects
+                            .filter((page) => page.get('date').getFullYear() === 2020)
                             .render((page) => {
                                 return `<div class="project col-sm-6 col-md-4">
                                             <img src="${page.get('thumbnail')}">
