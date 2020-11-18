@@ -34,7 +34,7 @@ template = "templates/basic.html"
 date = "created"
 build = "Alpha 3" # Build version of the website
 
-[pages.project]
+[pages.projects]
 is_public = false
 title = "PROJECT TITLE NOT SET"
 template = "templates/basic_project.html"

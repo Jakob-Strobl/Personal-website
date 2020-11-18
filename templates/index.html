@@ -210,34 +210,15 @@
                         </div>
                     </div>
                     <div class="project-container row">
-                        <div class="project col-sm-6 col-md-4">
-                            <img src="./img/projects/gmtk_2020.png">
-                            <p class="project-title">GMTK 2020 Game Jam Entry</p>
-                        </div>
-                        <div class="project col-sm-6 col-md-4">
-                            <img src="./img/projects/gmtk_2020.png">
-                            <p class="project-title">GMTK 2020 Game Jam Entry This is a long title</p>
-                        </div>
-                        <div class="project col-sm-6 col-md-4">
-                            <img src="./img/projects/gmtk_2020.png">
-                            <p class="project-title">GMTK 2020 Game Jam Entry</p>
-                        </div>
-                        <div class="project col-sm-6 col-md-4">
-                            <img src="./img/projects/gmtk_2020.png">
-                            <p class="project-title">GMTK 2020 Game Jam Entry this is an even longer title which means its super long.</p>
-                        </div>
-                        <div class="project col-sm-6 col-md-4">
-                            <img src="./img/projects/gmtk_2020.png">
-                            <p class="project-title">GMTK 2020 Game Jam Entry</p>
-                        </div>
-                        <div class="project col-sm-6 col-md-4">
-                            <img src="./img/projects/gmtk_2020.png">
-                            <p class="project-title">GMTK 2020 Game Jam Entry</p>
-                        </div>
-                        <div class="project col-sm-6 col-md-4">
-                            <img src="./img/projects/gmtk_2020.png">
-                            <p class="project-title">GMTK 2020 Game Jam Entry</p>
-                        </div>
+                        !{{
+                            projects
+                            .render((page) => {
+                                return `<div class="project col-sm-6 col-md-4">
+                                            <img src="${page.get('thumbnail')}">
+                                            <p class="project-title">${page.get('title')}</p>
+                                        </div>`;
+                            });
+                        }}
                     </div>
                 </div>
             </div>
