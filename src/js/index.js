@@ -3,12 +3,13 @@ import anime from './lib/anime.es.js';
 class PanelDirector {
     constructor() {
         this.current_panel = null;
+        this.overlayed_panel = null;
     }
 
     renderPanel(panel) {
         if (this.current_panel) {
             // Hide current panel
-            this.current_panel.hide();
+            this.clearPanel();
         }
 
         // Change current panel to the panel given to render
@@ -19,10 +20,54 @@ class PanelDirector {
     }
 
     clearPanel() {
-        if (this.current_panel) {
+        if (this.overlayed_panel) {
+            this.clearOverlayPanel();
+        } else if (this.current_panel) {
             // Hide current panel
             this.current_panel.hide();
             this.current_panel = null;
+        }
+    }
+
+    overlayPanel(overlaying_panel) {
+        // Set current panel to overlayed
+        this.overlayed_panel = this.current_panel;
+        this.overlayed_panel.hidePanel();
+        
+        // Display overlaying_panel
+        this.current_panel = overlaying_panel;
+        this.current_panel.displayPanel();
+    }
+
+    clearOverlayPanel() {
+        this.current_panel.hidePanel();
+
+        this.current_panel = this.overlayed_panel;
+        this.overlayed_panel = null;
+    }
+
+    loadProjectPanel(project_name) {
+        console.log(project_name);
+
+        // Check if project name matches regular expression
+        if (/#projects-(\d{4})-(\w+)/.test(project_name)) {
+            // Fetch project dynamically 
+            const project_panel = new Panel(document.getElementById('project-panel'))
+            const project_url = project_name.slice(1).replaceAll('-','/');
+            const URL = `${window.location.origin}/${project_url}.html`;
+            
+            // Overlay panel - TODO add loading screen
+            this.overlayPanel(project_panel);
+
+            // Fetch content and once we get content, inject HTML
+            fetch(URL)
+                .then((res) => res.text())
+                .then((text) => {
+                    const parser = new DOMParser();
+                    const html = parser.parseFromString(text, 'text/html');
+                    console.log(this.current_panel.root_element);
+                    this.current_panel.injectHtml(html.body.innerHTML);
+                });
         }
     }
 }
@@ -46,41 +91,28 @@ class Panel {
         }
     }
 
+    displayPanel() {
+        this.root_element.style.display = "block";
+        if (this.onRenderAnimation) {
+            this.onRenderAnimation.restart();
+        }
+    }
+
     hide() {
         this.root_element.style.display = "none";
         if (this.link_element) {
             this.link_element.children[0].style = "";
         }
     }
-}
 
-function renderCTAMessage() {
-    function clearCTAMessage() {
-        cta_message.style.display = "none";
+    hidePanel() {
+        this.root_element.style.display = "none";
     }
 
-    const cta_message = document.getElementById('cta-message');
-    cta_message.style.display = "inherit";
-
-    // Get the rendered height of the message (height is computed by broswer)
-    const height = cta_message.scrollHeight;
-    // Set the height to a base minimum to render in
-    cta_message.style.height = "1em"
-
-    anime({
-        targets: cta_message,
-        opacity: 1,
-        height: `${height}px`,
-        duration: 1200,
-        complete: () => {
-            // So the browser can handle the height once 
-            cta_message.style.height = "auto";
-        }
-    })
-    .play();
-
-    const cta_close = document.getElementById('close-cta');
-    cta_close.onclick = clearCTAMessage;
+    injectHtml(html) {
+        console.log(this.root_element.querySelector('.panel-content'));
+        this.root_element.querySelector('.panel-content').innerHTML = html;
+    }
 }
 
 const panel_context = new PanelDirector();
@@ -172,4 +204,45 @@ window.onload = () => {
             }   
         }
     }
+
+    // Init projects
+    initProjects();
+}
+
+function renderCTAMessage() {
+    function clearCTAMessage() {
+        cta_message.style.display = "none";
+    }
+
+    const cta_message = document.getElementById('cta-message');
+    cta_message.style.display = "inherit";
+
+    // Get the rendered height of the message (height is computed by broswer)
+    const height = cta_message.scrollHeight;
+    // Set the height to a base minimum to render in
+    cta_message.style.height = "1em"
+
+    anime({
+        targets: cta_message,
+        opacity: 1,
+        height: `${height}px`,
+        duration: 1200,
+        complete: () => {
+            // So the browser can handle the height once 
+            cta_message.style.height = "auto";
+        }
+    })
+    .play();
+
+    const cta_close = document.getElementById('close-cta');
+    cta_close.onclick = clearCTAMessage;
+}
+
+function initProjects() {
+    // Get all the project links and setup onlick functionality
+    const projects = document.querySelectorAll('.project-link');
+    
+    projects.forEach((project_link) => {
+        project_link.onclick = () => panel_context.loadProjectPanel(project_link.attributes.href.value);
+    });
 }

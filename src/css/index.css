@@ -367,7 +367,7 @@ a.anime-link:hover {
 
 } */
 
-/* Education Panel */
+/* Experience Panel */
 .sub-title {
     margin-top: 1rem;
     border-bottom: 1px solid var(--day-100);
@@ -440,4 +440,27 @@ ul.dash > li::before {
     text-align: left;
     font-size: 1.25rem;
     font-weight: 600;
+}
+
+/* Project Panel */
+a.project-link {
+    /* Removing default properties */
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+a.project-link:hover {
+    background: none;
+}
+
+a.project-link:visited {
+    color: inherit;
+}
+
+a.project-link:focus {
+    background: none;
 }

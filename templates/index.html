@@ -215,8 +215,10 @@
                             .filter((page) => page.get('date').getFullYear() === 2020)
                             .render((page) => {
                                 return `<div class="project col-sm-6 col-md-4">
-                                            <img src="${page.get('thumbnail')}">
-                                            <p class="project-title">${page.title()}</p>
+                                            <a class="project-link" role="button" href="#projects-2020-${page.name()}">
+                                                <img src="${page.get('thumbnail')}">
+                                                <p class="project-title">${page.title()}</p>
+                                            </a>
                                         </div>`;
                             });
                         }}
@@ -232,12 +234,21 @@
                             .filter((page) => page.get('date').getFullYear() === 2019)
                             .render((page) => {
                                 return `<div class="project col-sm-6 col-md-4">
-                                            <img src="${page.get('thumbnail')}">
-                                            <p class="project-title">${page.title()}</p>
+                                            <a class="project-link" role="button" href="#projects-2019-${page.name()}">
+                                                <img src="${page.get('thumbnail')}">
+                                                <p class="project-title">${page.title()}</p>
+                                            </a>
                                         </div>`;
                             });
                         }}
                     </div>
+                </div>
+            </div>
+        </section>
+        <section id="project-panel" class="panel-section container">
+            <div class="row">
+                <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 panel-content">
+                    <h1>Loading...</h1>
                 </div>
             </div>
         </section>
