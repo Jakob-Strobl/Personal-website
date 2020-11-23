@@ -4,7 +4,6 @@ class Panel {
     constructor(root_element) {
         this.root_element = root_element;
         this.onShowAnimation = null;
-        this.onHideAnimation = null;
     }
 
     show() {
@@ -15,9 +14,6 @@ class Panel {
     }
 
     hide() {
-        if (this.onHideAnimation) {
-            this.onHideAnimation.restart();
-        }
         this.root_element.style.display = "none";
     }
 }
@@ -35,45 +31,34 @@ class StaticPanel extends Panel {
             // Style from index.css { a.content-link:focus * }
             this.link_element.children[0].style = "transform: scale(1.06, 1.06);opacity: 1;text-decoration: underline;"
         }
-        if (this.onShowAnimation) {
-            this.onShowAnimation.restart();
-        }
-        this.root_element.style.display = "block";
+        super.show();
     }
 
     hide() {
         if (this.link_element) {
             this.link_element.children[0].style = "";
         }
-        if (this.onHideAnimation) {
-            this.onHideAnimation.restart();
-        }
-        this.root_element.style.display = "none";
+        super.hide();
     }
 
     hidePanel() {
-        if (this.onHideAnimation) {
-            this.onHideAnimation.restart();
-        }
         this.root_element.style.display = "none";
     }
 }
 
 class DynamicPanel extends Panel { 
-    constructor(root_element, inject_query='.panel-content') {
+    constructor(root_element, inject_query) {
         super(root_element);
         this.injection_element = this.root_element.querySelector(inject_query);
+
         this.loading_html = `<div class="col-sm-12" style="text-align:center;"> 
                                 <div class="spinner"></div>
                             </div>`;
     }
 
     show() {
-        if (this.onShowAnimation) {
-            this.onShowAnimation.restart();
-        }
         this.injection_element.innerHTML = this.loading_html;
-        this.root_element.style.display = "block";
+        super.show();
     }
 
     loadContent(html) {
@@ -85,21 +70,20 @@ class DynamicPanel extends Panel {
     }
 
     hide() {
-        this.root_element.style.display = "none";
         this.injection_element.innerHTML = '';
+        super.hide();
     }
 }
 
 class PanelDirector {
     constructor() {
         this.current_panel = null;
-        this.overlayed_panel = null;
     }
 
     renderPanel(panel) {
         if (this.current_panel) {
             // Hide current panel
-            this.clearPanel();
+            this.current_panel.hide();
         }
 
         // Change current panel to the panel given to render
@@ -109,29 +93,12 @@ class PanelDirector {
         this.current_panel.show();
     }
 
-    overlayPanel(overlaying_panel) {
-        this.overlayed_panel = this.current_panel;
-        this.overlayed_panel.hidePanel();
-
-        this.current_panel = overlaying_panel;
-        this.current_panel.show();
-    }
-
     clearPanel() {
-        if (this.overlayed_panel) {
-            this.clearOverlay();
-        } else if (this.current_panel) {
+        if (this.current_panel) {
             // Hide current panel
             this.current_panel.hide();
             this.current_panel = null;
         }
-    }
-
-    clearOverlay() {
-        this.current_panel.hide();
-        this.current_panel = this.overlayed_panel;
-        this.overlayed_panel = null;
-        this.current_panel.show();
     }
 
     renderProject(project_name) {
@@ -140,12 +107,12 @@ class PanelDirector {
         // Check if project name matches regular expression
         if (/#projects-(\d{4})-(\w+)/.test(project_name)) {
             // Fetch project dynamically 
-            const project_panel = new DynamicPanel(document.getElementById('project-panel'))
+            const project_panel = new DynamicPanel(document.getElementById('project-panel'), '.panel-content');
             const project_url = project_name.slice(1).replaceAll('-','/');
             const URL = `${window.location.origin}/${project_url}.html`;
 
             // Show panel
-            this.overlayPanel(project_panel);
+            this.renderPanel(project_panel);
 
             // Fetch content and once we get content, inject HTML
             fetch(URL)
