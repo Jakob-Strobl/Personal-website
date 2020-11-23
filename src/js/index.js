@@ -63,7 +63,7 @@ class DynamicPanel extends Panel {
     constructor(root_element, inject_query='.panel-content') {
         super(root_element);
         this.injection_element = this.root_element.querySelector(inject_query);
-        this.loading_html = `<div class="col-sm-12"> 
+        this.loading_html = `<div class="col-sm-12" style="text-align:center;"> 
                                 <div class="spinner"></div>
                             </div>`;
     }
@@ -153,6 +153,8 @@ class PanelDirector {
                 .then((text) => {
                     const parser = new DOMParser();
                     const html = parser.parseFromString(text, 'text/html');
+
+                    // TODO remove this timeout later
                     setTimeout(() => {
                         project_panel.loadContent(html.body.innerHTML);
                     }, 1000);
