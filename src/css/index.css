@@ -56,6 +56,9 @@
     --day-300: #fcf0db;
     --day-200: #fef9f2;
     --day-100: #fffefb;
+
+    --spinner-fore-color: var(--night-400);
+    --spinner-back-color: var(--night-900);
 }
 
 html, * {

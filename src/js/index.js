@@ -1,5 +1,95 @@
 import anime from './lib/anime.es.js';
 
+class Panel {
+    constructor(root_element) {
+        this.root_element = root_element;
+        this.onShowAnimation = null;
+        this.onHideAnimation = null;
+    }
+
+    show() {
+        if (this.onShowAnimation) {
+            this.onShowAnimation.restart();
+        }
+        this.root_element.style.display = "block";
+    }
+
+    hide() {
+        if (this.onHideAnimation) {
+            this.onHideAnimation.restart();
+        }
+        this.root_element.style.display = "none";
+    }
+}
+
+class StaticPanel extends Panel {
+    constructor(root_element, link_element) {
+        super(root_element);
+        
+        // Assume each link element has a single child
+        this.link_element = link_element;
+    }
+
+    show() {
+        if (this.link_element) {
+            // Style from index.css { a.content-link:focus * }
+            this.link_element.children[0].style = "transform: scale(1.06, 1.06);opacity: 1;text-decoration: underline;"
+        }
+        if (this.onShowAnimation) {
+            this.onShowAnimation.restart();
+        }
+        this.root_element.style.display = "block";
+    }
+
+    hide() {
+        if (this.link_element) {
+            this.link_element.children[0].style = "";
+        }
+        if (this.onHideAnimation) {
+            this.onHideAnimation.restart();
+        }
+        this.root_element.style.display = "none";
+    }
+
+    hidePanel() {
+        if (this.onHideAnimation) {
+            this.onHideAnimation.restart();
+        }
+        this.root_element.style.display = "none";
+    }
+}
+
+class DynamicPanel extends Panel { 
+    constructor(root_element, inject_query='.panel-content') {
+        super(root_element);
+        this.injection_element = this.root_element.querySelector(inject_query);
+        this.loading_html = `<div class="col-sm-12"> 
+                                <div class="spinner"></div>
+                            </div>`;
+    }
+
+    show() {
+        if (this.onShowAnimation) {
+            this.onShowAnimation.restart();
+        }
+        this.injection_element.innerHTML = this.loading_html;
+        this.root_element.style.display = "block";
+    }
+
+    loadContent(html) {
+        if (this.root_element.style.display !== "none") {
+            this.injection_element.innerHTML = html;
+        } else {
+            console.warn('Trying to display fetched content on a hidden root element.');
+        }
+    }
+
+    hide() {
+        this.root_element.style.display = "none";
+        this.injection_element.innerHTML = '';
+    }
+}
+
 class PanelDirector {
     constructor() {
         this.current_panel = null;
@@ -16,12 +106,20 @@ class PanelDirector {
         this.current_panel = panel;
 
         // Display the panel
-        this.current_panel.display();
+        this.current_panel.show();
+    }
+
+    overlayPanel(overlaying_panel) {
+        this.overlayed_panel = this.current_panel;
+        this.overlayed_panel.hidePanel();
+
+        this.current_panel = overlaying_panel;
+        this.current_panel.show();
     }
 
     clearPanel() {
         if (this.overlayed_panel) {
-            this.clearOverlayPanel();
+            this.clearOverlay();
         } else if (this.current_panel) {
             // Hide current panel
             this.current_panel.hide();
@@ -29,34 +127,24 @@ class PanelDirector {
         }
     }
 
-    overlayPanel(overlaying_panel) {
-        // Set current panel to overlayed
-        this.overlayed_panel = this.current_panel;
-        this.overlayed_panel.hidePanel();
-        
-        // Display overlaying_panel
-        this.current_panel = overlaying_panel;
-        this.current_panel.displayPanel();
-    }
-
-    clearOverlayPanel() {
-        this.current_panel.hidePanel();
-
+    clearOverlay() {
+        this.current_panel.hide();
         this.current_panel = this.overlayed_panel;
         this.overlayed_panel = null;
+        this.current_panel.show();
     }
 
-    loadProjectPanel(project_name) {
+    renderProject(project_name) {
         console.log(project_name);
 
         // Check if project name matches regular expression
         if (/#projects-(\d{4})-(\w+)/.test(project_name)) {
             // Fetch project dynamically 
-            const project_panel = new Panel(document.getElementById('project-panel'))
+            const project_panel = new DynamicPanel(document.getElementById('project-panel'))
             const project_url = project_name.slice(1).replaceAll('-','/');
             const URL = `${window.location.origin}/${project_url}.html`;
-            
-            // Overlay panel - TODO add loading screen
+
+            // Show panel
             this.overlayPanel(project_panel);
 
             // Fetch content and once we get content, inject HTML
@@ -65,53 +153,11 @@ class PanelDirector {
                 .then((text) => {
                     const parser = new DOMParser();
                     const html = parser.parseFromString(text, 'text/html');
-                    console.log(this.current_panel.root_element);
-                    this.current_panel.injectHtml(html.body.innerHTML);
+                    setTimeout(() => {
+                        project_panel.loadContent(html.body.innerHTML);
+                    }, 1000);
                 });
         }
-    }
-}
-
-class Panel {
-    constructor(html_element, html_link) {
-        this.root_element = html_element;
-        // Assume each link element has a single child
-        this.link_element = html_link;
-        this.onRenderAnimation = null;
-    }
-
-    display() {
-        this.root_element.style.display = "block";
-        if (this.link_element) {
-            // Style from index.css { a.content-link:focus * }
-            this.link_element.children[0].style = "transform: scale(1.06, 1.06);opacity: 1;text-decoration: underline;"
-        }
-        if (this.onRenderAnimation) {
-            this.onRenderAnimation.restart();
-        }
-    }
-
-    displayPanel() {
-        this.root_element.style.display = "block";
-        if (this.onRenderAnimation) {
-            this.onRenderAnimation.restart();
-        }
-    }
-
-    hide() {
-        this.root_element.style.display = "none";
-        if (this.link_element) {
-            this.link_element.children[0].style = "";
-        }
-    }
-
-    hidePanel() {
-        this.root_element.style.display = "none";
-    }
-
-    injectHtml(html) {
-        console.log(this.root_element.querySelector('.panel-content'));
-        this.root_element.querySelector('.panel-content').innerHTML = html;
     }
 }
 
@@ -131,14 +177,14 @@ window.onload = () => {
     const cta_link = document.getElementById('cta-link');
 
     // Locked panel is the default for all content panels that have not been completed
-    const locked_panel = new Panel(document.getElementById('locked-panel'));
-    const experience_panel = new Panel(document.getElementById('experience-panel'), experience_link);
-    const portfolio_panel = new Panel(document.getElementById('portfolio-panel'), portfolio_link);
-    const contact_panel = new Panel(document.getElementById('contact-panel'), contact_link);
+    const locked_panel = new StaticPanel(document.getElementById('locked-panel'));
+    const experience_panel = new StaticPanel(document.getElementById('experience-panel'), experience_link);
+    const portfolio_panel = new StaticPanel(document.getElementById('portfolio-panel'), portfolio_link);
+    const contact_panel = new StaticPanel(document.getElementById('contact-panel'), contact_link);
 
     // Add animation to panels
     const locked_panel_elements = locked_panel.root_element.querySelectorAll('.panel-content .el');
-    locked_panel.onRenderAnimation = anime({
+    locked_panel.onShowAnimation = anime({
         targets: locked_panel_elements,
         opacity: 1,
         duration: 600,
@@ -147,7 +193,7 @@ window.onload = () => {
     });
 
     const experience_panel_elements = Array.from(experience_panel.root_element.querySelectorAll('.panel-content .el'));
-    experience_panel.onRenderAnimation = anime({
+    experience_panel.onShowAnimation = anime({
         targets: experience_panel_elements,
         opacity: 1,
         duration: 600,
@@ -156,7 +202,7 @@ window.onload = () => {
     });
 
     const contact_panel_elements = Array.from(contact_panel.root_element.querySelectorAll('.panel-content .el'));
-    contact_panel.onRenderAnimation = anime.timeline({
+    contact_panel.onShowAnimation = anime.timeline({
         duration: 500,
         easing: 'easeInOutSine',
     })
@@ -243,6 +289,6 @@ function initProjects() {
     const projects = document.querySelectorAll('.project-link');
     
     projects.forEach((project_link) => {
-        project_link.onclick = () => panel_context.loadProjectPanel(project_link.attributes.href.value);
+        project_link.onclick = () => panel_context.renderProject(project_link.attributes.href.value);
     });
 }
