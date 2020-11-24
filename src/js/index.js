@@ -1,9 +1,13 @@
 import anime from './lib/anime.es.js';
 
 class Panel {
+    /**
+     * Construct a Panel
+     * @param {*} root_element The root element of the panel we want to handle 
+     * @param {*} link_element (optional) The associated link element we want to style when a panel is rendered 
+     */
     constructor(root_element, link_element) {
         this.root_element = root_element;
-        // Assume each link element has a single child
         this.link_element = link_element;
 
         this.onShowAnimation = null;
@@ -29,6 +33,12 @@ class Panel {
 }
 
 class DynamicPanel extends Panel { 
+    /**
+     * Construct a Dynamic Panel which handles asynchronous fetches for content
+     * @param {*} root_element The root element of the panel we want to handle 
+     * @param {*} link_element (optional) The associated link element we want to style when a panel is rendered 
+     * @param {*} inject_query Query to select a child element of the root_element to inject HTML (inside the element)
+     */
     constructor(root_element, link_element, inject_query) {
         super(root_element, link_element);
         this.injection_element = this.root_element.querySelector(inject_query);
