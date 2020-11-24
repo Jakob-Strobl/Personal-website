@@ -131,17 +131,17 @@ window.onload = () => {
 
     // Init the page functionality
     const experience_link = document.getElementById('experience-link');
-    const portfolio_link = document.getElementById('portfolio-link');
+    const portfolio_links = document.querySelectorAll('.portfolio-link');
     const name_link = document.getElementById('name-link');
     const blog_link = document.getElementById('blog-link');
-    const contact_link = document.getElementById('contact-link');
-    const cta_link = document.getElementById('cta-link');
+    const contact_links = document.querySelectorAll('.contact-link');
+
 
     // Locked panel is the default for all content panels that have not been completed
     const locked_panel = new Panel(document.getElementById('locked-panel'));
     const experience_panel = new Panel(document.getElementById('experience-panel'), experience_link.children[0]);
-    const portfolio_panel = new Panel(document.getElementById('portfolio-panel'), portfolio_link.children[0]);
-    const contact_panel = new Panel(document.getElementById('contact-panel'), contact_link.children[0]);
+    const portfolio_panel = new Panel(document.getElementById('portfolio-panel'), portfolio_links[0].children[0]);
+    const contact_panel = new Panel(document.getElementById('contact-panel'), contact_links[0].children[0]);
 
     // Add animation to panels
     const locked_panel_elements = locked_panel.root_element.querySelectorAll('.panel-content .el');
@@ -179,11 +179,14 @@ window.onload = () => {
 
     // Set onclick functionality 
     experience_link.onclick = () => panel_context.renderPanel(experience_panel);
-    portfolio_link.onclick = () => panel_context.renderPanel(portfolio_panel);
+    portfolio_links.forEach((link) => {
+        link.onclick = () => panel_context.renderPanel(portfolio_panel);
+    });
     name_link.onclick = () => panel_context.clearPanel();
     blog_link.onclick = () => panel_context.renderPanel(locked_panel);
-    contact_link.onclick = () => panel_context.renderPanel(contact_panel);
-    cta_link.onclick = () => panel_context.renderPanel(contact_panel);
+    contact_links.forEach((link) => {
+        link.onclick = () => panel_context.renderPanel(contact_panel);
+    });
     
     // Load panel if url_id is given
     const regex = /#\w+/i;
@@ -198,7 +201,7 @@ window.onload = () => {
                 break;
             }
             case "#portfolio": {
-                portfolio_link.click();
+                portfolio_links[0].click();
                 break;
             }
             case "#blog": {
@@ -206,7 +209,7 @@ window.onload = () => {
                 break;
             }
             case "#contact": {
-                contact_link.click();
+                contact_links[0].click();
                 break;
             }   
         }

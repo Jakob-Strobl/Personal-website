@@ -236,7 +236,7 @@ a.locked.content-link:focus * {
 
 #cta-link:hover {
     /* Removing default properties */
-    color: black;
+    color: var(--night-900);
 }
 
 #close-cta button {
