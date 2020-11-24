@@ -1,54 +1,36 @@
 import anime from './lib/anime.es.js';
 
 class Panel {
-    constructor(root_element) {
+    constructor(root_element, link_element) {
         this.root_element = root_element;
+        // Assume each link element has a single child
+        this.link_element = link_element;
+
         this.onShowAnimation = null;
     }
 
-    show() {
-        if (this.onShowAnimation) {
+    show(play_animation=true) {
+        if (this.link_element) {
+            // Style from index.css { a.content-link:focus * }
+            this.link_element.children[0].style = "transform: scale(1.06, 1.06);opacity: 1;text-decoration: underline;"
+        }
+        if (play_animation && this.onShowAnimation) {
             this.onShowAnimation.restart();
         }
         this.root_element.style.display = "block";
     }
 
     hide() {
-        this.root_element.style.display = "none";
-    }
-}
-
-class StaticPanel extends Panel {
-    constructor(root_element, link_element) {
-        super(root_element);
-        
-        // Assume each link element has a single child
-        this.link_element = link_element;
-    }
-
-    show() {
-        if (this.link_element) {
-            // Style from index.css { a.content-link:focus * }
-            this.link_element.children[0].style = "transform: scale(1.06, 1.06);opacity: 1;text-decoration: underline;"
-        }
-        super.show();
-    }
-
-    hide() {
         if (this.link_element) {
             this.link_element.children[0].style = "";
         }
-        super.hide();
-    }
-
-    hidePanel() {
         this.root_element.style.display = "none";
     }
 }
 
 class DynamicPanel extends Panel { 
-    constructor(root_element, inject_query) {
-        super(root_element);
+    constructor(root_element, link_element, inject_query) {
+        super(root_element, link_element);
         this.injection_element = this.root_element.querySelector(inject_query);
 
         this.loading_html = `<div class="col-sm-12" style="text-align:center;"> 
@@ -56,9 +38,9 @@ class DynamicPanel extends Panel {
                             </div>`;
     }
 
-    show() {
+    show(play_animation=true) {
         this.injection_element.innerHTML = this.loading_html;
-        super.show();
+        super.show(play_animation);
     }
 
     loadContent(html) {
@@ -80,7 +62,7 @@ class PanelDirector {
         this.current_panel = null;
     }
 
-    renderPanel(panel) {
+    renderPanel(panel, options={}) {
         if (this.current_panel) {
             // Hide current panel
             this.current_panel.hide();
@@ -90,7 +72,7 @@ class PanelDirector {
         this.current_panel = panel;
 
         // Display the panel
-        this.current_panel.show();
+        this.current_panel.show(options.play_animation);
     }
 
     clearPanel() {
@@ -107,7 +89,7 @@ class PanelDirector {
         // Check if project name matches regular expression
         if (/#projects-(\d{4})-(\w+)/.test(project_name)) {
             // Fetch project dynamically 
-            const project_panel = new DynamicPanel(document.getElementById('project-panel'), '.panel-content');
+            const project_panel = new DynamicPanel(document.getElementById('project-panel'), this.current_panel.link_element, '.panel-content');
             const project_url = project_name.slice(1).replaceAll('-','/');
             const URL = `${window.location.origin}/${project_url}.html`;
 
@@ -146,10 +128,10 @@ window.onload = () => {
     const cta_link = document.getElementById('cta-link');
 
     // Locked panel is the default for all content panels that have not been completed
-    const locked_panel = new StaticPanel(document.getElementById('locked-panel'));
-    const experience_panel = new StaticPanel(document.getElementById('experience-panel'), experience_link);
-    const portfolio_panel = new StaticPanel(document.getElementById('portfolio-panel'), portfolio_link);
-    const contact_panel = new StaticPanel(document.getElementById('contact-panel'), contact_link);
+    const locked_panel = new Panel(document.getElementById('locked-panel'));
+    const experience_panel = new Panel(document.getElementById('experience-panel'), experience_link);
+    const portfolio_panel = new Panel(document.getElementById('portfolio-panel'), portfolio_link);
+    const contact_panel = new Panel(document.getElementById('contact-panel'), contact_link);
 
     // Add animation to panels
     const locked_panel_elements = locked_panel.root_element.querySelectorAll('.panel-content .el');
