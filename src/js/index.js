@@ -12,7 +12,7 @@ class Panel {
     show(play_animation=true) {
         if (this.link_element) {
             // Style from index.css { a.content-link:focus * }
-            this.link_element.children[0].style = "transform: scale(1.06, 1.06);opacity: 1;text-decoration: underline;"
+            this.link_element.style = "transform: scale(1.06, 1.06);opacity: 1;text-decoration: underline;"
         }
         if (play_animation && this.onShowAnimation) {
             this.onShowAnimation.restart();
@@ -22,7 +22,7 @@ class Panel {
 
     hide() {
         if (this.link_element) {
-            this.link_element.children[0].style = "";
+            this.link_element.style = "";
         }
         this.root_element.style.display = "none";
     }
@@ -129,9 +129,9 @@ window.onload = () => {
 
     // Locked panel is the default for all content panels that have not been completed
     const locked_panel = new Panel(document.getElementById('locked-panel'));
-    const experience_panel = new Panel(document.getElementById('experience-panel'), experience_link);
-    const portfolio_panel = new Panel(document.getElementById('portfolio-panel'), portfolio_link);
-    const contact_panel = new Panel(document.getElementById('contact-panel'), contact_link);
+    const experience_panel = new Panel(document.getElementById('experience-panel'), experience_link.children[0]);
+    const portfolio_panel = new Panel(document.getElementById('portfolio-panel'), portfolio_link.children[0]);
+    const contact_panel = new Panel(document.getElementById('contact-panel'), contact_link.children[0]);
 
     // Add animation to panels
     const locked_panel_elements = locked_panel.root_element.querySelectorAll('.panel-content .el');
